@@ -1,7 +1,7 @@
 {
   "name": "nuxt-vue-apollo",
   "dependencies": {
-    "@nuxtjs/apollo": "^1.0.0",
+    "@nuxtjs/apollo": "git://github.com/HungryUp/apollo-module.git#fix/fetch",
     "nuxt": "^1.0.0-rc3"
   },
   "scripts": {
