@@ -15,7 +15,8 @@ const packageJSON = readJSONSync(resolve(rootDir, 'package.json'))
 // Required and Excluded packages for start
 let requires = [
   'source-map-support',
-  'pretty-error'
+  'pretty-error',
+  'minimist'
 ]
 
 const excludes = [
@@ -59,6 +60,9 @@ packageJSON.dependencies = dependencies
 // Update package meta
 packageJSON.name = 'nuxt-start'
 packageJSON.description = 'runtime-only build for nuxt'
+packageJSON.bin = {
+  'nuxt-start': './bin/nuxt-start'
+}
 
 // Update package.json
 writeFileSync(resolve(startDir, 'package.json'), JSON.stringify(packageJSON, null, 2))

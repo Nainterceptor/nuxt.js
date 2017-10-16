@@ -119,7 +119,7 @@ test('/error status code', async t => {
     await rp(url('/error'))
   } catch (err) {
     t.true(err.statusCode === 500)
-    t.true(err.response.body.includes('Error mouahahah'))
+    t.true(err.response.body.includes('An error occurred in the application and your page could not be served'))
   }
 })
 
@@ -146,6 +146,17 @@ test('/redirect2', async t => {
   const output = stdMocks.flush()
   // Don't display error since redirect returns a noopApp
   t.true(output.stderr.length === 0)
+})
+
+test('/no-ssr', async t => {
+  const { html } = await nuxt.renderRoute('/no-ssr')
+  t.true(html.includes('<div class="no-ssr-placeholder">&lt;p&gt;Loading...&lt;/p&gt;</div>'))
+})
+
+test('/no-ssr (client-side)', async t => {
+  const window = await nuxt.renderAndGetWindow(url('/no-ssr'))
+  const html = window.document.body.innerHTML
+  t.true(html.includes('Displayed only on client-side</h1>'))
 })
 
 test('ETag Header', async t => {
